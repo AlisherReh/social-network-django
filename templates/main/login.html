@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>A Twit</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?{% now "U" %}">
+</head>
+<body class = "bg-dark text-light">
+    {% load crispy_forms_tags %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">HOME</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../register">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="d-flex justify-content-center mt-5 login-form-div">
+        <form style="" class="register_class" method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>
+                <label class="form-label" for="form2Example1">Enter your username</label><br>
+                <input type="text" name="username" class="form-control"/>
+                
+            </p>
+            <p>
+                <label class="form-label" for="form2Example1">Enter your password</label><br>
+                <input type="password" name="password" class="form-control"/>
+                
+            </p>
+            
+            <input type="submit" value="Submit" class="btn btn-light">
+            {% for message in messages %}
+                <p id = 'messages'>{{message}}</p>
+            {% endfor %}
+            <div>
+                <p>Don't have an account? <a href='../register'>Sign up</a></p>
+            </div>
+        </form>
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+</body>
+</html>

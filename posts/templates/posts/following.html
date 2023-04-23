@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>A Twit</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?{% now "U" %}">
+    <link rel="icon" href="{% static 'media/123_fvipp2r.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body class="posts-page-body">
+    {% include "nav.html" %}
+    
+    <div class="post-add-div">
+        <div class="card mb-1 post-card container mt-3 text-center post-form-div">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p class="card-text"><img src="{{request.user.status.profile_picture.url}}" class="post-user-pic profile_pic twit-user-pic">{{ post_form.post_body }} </p>
+                <p class="card-text">
+                <label for="id_image">
+                    <img src="{% static 'media/icone-d-image-violet.png' %}" class="image-pick-icon">
+                </label>
+                <label for="id_video">
+                    <img src="{% static 'media/video-icon.png' %}" class="image-pick-icon">
+                </label>
+                {{ post_form.image }}
+                {{ post_form.video }}
+                </p>
+                <button type="submit" class="btn post-btn mb-3" name="submit_post">Tweet</button>
+            </form>
+        </div>
+    </div>
+    
+    {% csrf_token %}
+    <div class="text-center"><h3 class="following-post-page-title mt-5">MY FOLLOWINGS</h3></div>
+
+    <div class="posts-div container mt-5">
+        
+        {% load custom_filters %}
+        {% for post in posts%}
+            <div class="card mb-1 post-card">
+                <div class="card-body">
+                    <p class="card-text"><img src="{{post.user.status.profile_picture.url}}" class="post-user-pic profile_pic">  {{ post.post_body }}</p>
+                    <div class="text-center mb-5"> 
+                        
+                    {% if post.image != "" and post.video == ''%}<img src="{{post.image.url}}" class="post-image">{%endif%}
+                    {% if post.video.url != null and post.image == '' %}
+                    <video class=" video" controls muted loop autoplay id="video_{{post.id}}">
+                        <source src="{{ post.video.url }}" type="video/mp4">
+                      </video>
+                      {%endif%}
+                    {% if post.video.url != null and post.image.url != null %}
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <ol class="carousel-indicators">
+                          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <video class="video" controls muted loop autoplay id="video_{{post.id}}">
+                                <source src="{{ post.video.url }}" type="video/mp4">
+                              </video>
+                          </div>
+                          <div class="carousel-item">
+                            <img src="{{post.image.url}}" class="post-image">
+                          </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          
+                        </a>
+                      </div>
+                      
+                    {%endif%}
+
+                    </div>
+                    <p class="card-text"><small class="text-muted">Posted by <b>{{ post.user.username }}</b> {% if post.user.is_staff %} <img class="staff-icon" title="Staff" src="{% static 'media/staff.png' %}"> {%endif%} on {{ post.created }}</small></p>
+                </div>
+            </div>
+            <button class="btn mt-1 mb-3 comment-toggle-btn" type="button" data-toggle="collapse" data-target="#collapseComments{{ post.id }}" aria-expanded="false" aria-controls="collapseComments{{ post.id }}">
+                Toggle Comments
+                <img src="{% static 'media/chat.png' %}" class="toggle-button-icon">
+            </button>
+            
+              <!-- Collapsible content -->
+            <div class="collapse mb-5" id="collapseComments{{ post.id }}">
+                <h4 class= 'posts-page-font'>Comments</h4>
+                <div class="comment-ajax-div {{ post.id }}">
+                {% for comment in post.comments.all|orderby_date:"asc" %}
+                    <div class="card mx-5 mt-2 comment-card">
+                        <div class="card-body">
+                            <p class="card-text"><img src="{{comment.user.status.profile_picture.url}}" class="comment-user-pic profile_pic"></img>   {{ comment.comment_body }}</p>
+                            <p class="card-text"><small class="text-muted">Commented by <b>{{ comment.user.username }}</b> {% if comment.user.is_staff %} <img class="staff-icon" title="Staff" src="{% static 'media/staff.png' %}"> {%endif%} on {{ comment.created }}</small></p>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="comment-form">
+                    <p><input type=text class="id_comment_body_class_{{ post.id }} id_comment_body_class_style" placeholder="Add a comment...", autocomplete=off>
+                    <p><button type="submit" class="btn comment-btn" name="submit_comment" data-post="{{ post.id }}">Add Comment</button>
+                </div>
+            </div>
+            
+        {% endfor %}
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if posts.has_previous %}
+                <a class="first-button" href="?page=1">first</a>
+                <a class="icon-page" href="?page={{ posts.previous_page_number }}">&laquo;</a>
+            {% endif %}
+    
+            
+    
+            {% if posts.has_next %}
+                <a class="icon-page" href="?page={{ posts.next_page_number }}">&raquo;</a>
+                <a class="last-button" href="?page={{ posts.paginator.num_pages }}">Last</a>
+            {% endif %}
+        </span>
+        
+    </div>
+    <div class="pagination">
+        <ul class="page-list"> 
+            {% for page_num in posts.paginator.page_range %}
+                <li class="page-item {% if page_num == posts.number %}selected{% endif %}"> 
+                    <a href="?page={{ page_num }}">{{ page_num }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% include "footer.html" %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.js' %}" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        //Проигрование только одного видео
+        var videos = document.getElementsByClassName('video');
+
+        for (var i = 0; i < videos.length; i++) {
+        videos[i].addEventListener('play', function(event) {
+            pauseOtherVideos(event.target);
+        });
+        }
+
+        function pauseOtherVideos(currentVideo) {
+        for (var i = 0; i < videos.length; i++) {
+            if (videos[i] !== currentVideo) {
+            videos[i].pause();
+            }
+        }
+        }
+        //Коментарии с использованием ajax
+        $(document).ready(function(){
+            $(".comment-btn").on('click', function(){
+                var _postid = $(this).data('post');
+                var _comment = $(".id_comment_body_class_" + _postid).val();
+                console.log(_comment)
+                $.ajax({
+                    url:"/posts/save-comment",
+                    type:"post",
+                    data: {
+                        comment:_comment,
+                        postid:_postid,
+                        csrfmiddlewaretoken:"{{ csrf_token }}",
+                        imageurl:"{{ request.user.status.profile_picture.url }}"
+                    },
+                    dataType:'json',
+                    beforeSend:function(){
+                        $(".comment-btn").addClass('disabled').text('Sending...');
+                    },
+                    success:function(res){
+                        if(res.bool == true){
+                            $(".id_comment_body_class_" + _postid).val('');
+                            var _html = '<div class="card mx-5 mt-2 comment-card animate__animated animate__fadeInTopLeft">\
+                            <div class="card-body">\
+                                <p class="card-text"><img src="'+res.imgurl+'" class="comment-user-pic profile_pic"></img>  '+_comment+'</p>\
+                                <p class="card-text"><small class="text-muted">Commented by <b>'+"{{request.user}}"+'</b> {% if request.user.is_staff %} <img class="staff-icon" title="Staff" src="{% static 'media/staff.png' %}"> {%endif%} on '+res.time+'</small></p>\
+                            </div>\
+                        </div>';
+                            $('.'+_postid+'').append(_html);
+                        }
+                        $(".comment-btn").removeClass('disabled').text('Submit');
+                    }
+                })
+            });
+        });
+        //Кнопка наверх
+        $(document).ready(function() {
+            $('.up-button').hide();
+          
+            $(window).scroll(function() {
+              var scrollPosition = $(window).scrollTop();
+
+              var documentHeight = $(document).height();
+
+              var windowHeight = $(window).height();
+
+              var scrollDistanceFromBottom = documentHeight - (scrollPosition + windowHeight);
+          
+              if (scrollDistanceFromBottom < 600) {
+                $('.up-button').fadeIn();
+              } else {
+                $('.up-button').fadeOut();
+              }
+            });
+          
+            $('.up-button').click(function() {
+              $('html, body').animate({scrollTop: 0}, 'slow');
+              return false;
+            });
+          });
+    </script>
+</body>
+</html>

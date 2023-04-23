@@ -1,0 +1,83 @@
+        
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>A Twit</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?{% now "U" %}">
+    <link rel="icon" href="{% static 'media/123_fvipp2r.png' %}">
+</head>
+<body>
+        {% include "nav.html" %}
+        
+        <div class="container-fluid mb-3 mt-5 myprofile-page-div">
+                <div class="col-sm-9 col-status-div">
+                    <div class="profile-top-div"> 
+                        <img src="{{ profile.user.status.profile_picture.url }}" class="img-responsive profile_pic" style="width:200px" alt="Image">
+                        <button class="btn profile-change-btn " onclick="document.location='follow/{{ profile.user.status.id }}'"><a href="follow/{{ profile.user.status.id }}" class="follow-link">{{ button_text }}</a></button>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button class="btn profile-followers-btn" id="open-popup">Followers({{ followers.count }})</button>
+
+                        <div id="popup" class="popup">
+                            <div class="popup-content">
+                                <h2 class="popup-title-text">Followers</h2>
+                                {%for user in followers %}
+                                <p><a href = "../profile/{{ user.user.status.id }}" class="profile-followers-user-link">
+                                    <img src="{{user.user.status.profile_picture.url}}" class="post-user-pic profile_pic">{{ user.user }}
+                                </a>
+                                {%endfor%}
+                                <p><button class="btn profile-followers-btn" id="close-popup">Закрыть</button>
+                            </div>
+                        </div>
+                        <p>Last time user was online:
+                        <p class="">{{profile.user.last_login}}
+                    </div>
+                    <h4 class="mt-5">Username</h4>
+                    <div>
+                        <p class="">{{profile.user.username}}
+                    </div>
+                    <h4 class="mt-4">Bio</h4>
+                    <div>
+                        <p class="">{{profile.user.status.bio}}
+                    </div>
+                    <h4 class="mt-4">Country</h4>
+                    <div>
+                        <p class="">{{profile.user.status.country}}
+                    </div>
+                    
+                </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+        <script>
+            // Получаем элементы кнопки и всплывающего окна
+            const openButton = document.getElementById('open-popup');
+            const closeButton = document.getElementById('close-popup');
+            const popup = document.getElementById('popup');
+
+            // Функция для открытия всплывающего окна
+            function openPopup() {
+            popup.style.display = 'block';
+            }
+
+            // Функция для закрытия всплывающего окна
+            function closePopup() {
+            popup.style.display = 'none';
+            }
+
+            // Назначаем обработчики событий на кнопку и на темный фон
+            openButton.addEventListener('click', openPopup);
+            closeButton.addEventListener('click', closePopup);
+            popup.addEventListener('click', function(event) {
+            if (event.target === popup) {
+                closePopup();
+            }
+            });
+        </script>
+    </body>
+</html>

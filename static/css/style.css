@@ -1,0 +1,652 @@
+/*ДЛЯ ВСЕХ СТРАНИЦ*/
+/*проктрутка на сайте*/
+/* Width of scrollbar */
+html::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track of scrollbar */
+html::-webkit-scrollbar-track {
+    background-color: #333333;
+}
+  
+  /* Handle of scrollbar */
+html::-webkit-scrollbar-thumb {
+    background-color: #666666;
+    border-radius: 10px;
+}
+  /* When hovering over scrollbar */
+html::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(249, 61, 140);
+}
+
+/*footer*/
+footer {
+    background-color: #171717;
+    color: white;
+    padding: 15px;
+}
+/*Для всех аватарок пользователей округление*/
+.profile_pic{
+    border-radius: 100px;
+}
+body{
+    background-color: #000000;
+    color: white;
+}
+  
+
+
+
+
+/*СТРАНИЦА С ПОСТАМИ main(posts)*/
+
+/*Посты*/
+.posts-page-body{
+    background-color: #000000;
+    color: white;
+}
+.posts-page-body a{
+    color: rgb(249, 61, 140);
+}
+.posts-page-font{
+    color: aliceblue;
+}
+.posts-div{
+    width: 850px;
+    font-size: 20px;
+}
+.post-card, .comment-card{
+    background-color: #000000;
+    border-color: #181818;
+    border-width: 3px;
+}
+.post-image{
+    width: 500px;
+    border-radius: 10px;
+}
+.post-user-pic{
+    width: 75px;
+    height: 75px;
+}
+.video{
+    border-radius: 10px;
+    max-height: 750px;
+    width: 100%;
+}
+.carousel-control-prev, .carousel-control-next{
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+
+/*Твит поста*/
+.twit-user-pic{
+    margin: 10px;
+    margin-top: -75px;
+}
+textarea#id_post_body{
+    background-color: #000000;
+    border: #000000;
+    color:white;
+    outline:none;
+    width: 600px;
+    resize: none;
+    overflow: auto;
+	overflow-x: hidden;
+}
+textarea#id_post_body::-webkit-scrollbar-track{
+	background-color: white;
+}
+
+textarea#id_post_body::-webkit-scrollbar{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+textarea#id_post_body::-webkit-scrollbar-thumb{
+	border-radius: 100px;
+	box-shadow: 3px 0px 12px 4px rgb(12, 12, 12);
+	background-color: rgb(249, 61, 140);
+}
+.post-form-div{
+    padding-top: 60px;
+    width: 830px;
+}
+.post-add-div{
+    width: 850px;
+    width: auto;
+}
+.post-btn{
+    background-color: rgb(249, 61, 140);
+    color: white;
+    width: 100px;
+    height: 50px;
+    position: relative; left: 300px;
+}
+.post-btn:hover{
+    background-color: rgb(191, 58, 113);
+    color: white;
+}
+
+#id_image, #id_video{
+    display: none;
+}
+.image-pick-icon{
+    position: relative; right: 250px;
+    width: 40px;
+    height: 40px;
+    margin-left: 30px;
+}
+.pagination{
+    justify-content: center;
+    font-size: 20px;
+}
+.last-button{
+    margin-left: 150px;
+}
+.first-button{
+    margin-right: 150px;
+}
+.icon-page{
+    font-size: 45px;
+}
+.page-list {
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    display: inline-block;
+    margin-right: 5px; 
+    color: white;
+}
+
+.page-item a {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: white;
+}
+.selected{
+    background-color: rgb(249, 61, 140);
+}
+.up-button {
+    background-color: rgb(249, 61, 140);
+    color: white; 
+    display: none;
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    padding: 10px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+  }
+.up-button img{
+    width: 25px;
+    height: 25px;
+}
+  .up-button:hover {
+    background-color: rgb(191, 58, 113);
+  }
+@media only screen and (max-width: 767px) {
+    .post-btn{
+        position: relative; left: 0;
+    }
+    .image-pick-icon{
+        position: relative; right: 0;
+        width: 50px;
+        height: 50px;
+    }
+    .post-image{
+        width: 400px;
+        border-radius: 10px;
+    }
+    .post-card{
+        width: 500px;
+    }
+    .comment-card{
+        width: 400px;
+    }
+    textarea#id_post_body{
+        width: 300px;
+    }
+
+}
+
+/*Комментарии*/
+.comment-btn{
+    background-color: rgb(249, 61, 140);
+    color: white;
+}
+.comment-btn:hover{
+    background-color: rgb(191, 58, 113);
+    color: white;
+}
+.comment-user-pic{
+    width: 50px;
+    height: 50px;
+}
+.comment-toggle-btn{
+    border-radius: 10px;
+    background-color: #000000;
+    color: white;
+    border-color: rgb(48, 48, 48);
+}
+.comment-toggle-btn:hover{
+    background-color: #212121;
+}
+.toggle-button-icon{
+    width: 40px;
+    height: 40px;
+    margin-left: 30px;
+}
+/*Поле для ввода комметария*/
+input#id_comment_body{
+    background-color: #000000;
+    border: #000000;
+    color:white;
+    outline:none;
+}
+.id_comment_body_class_style{
+    background-color: #000000;
+    border: #000000;
+    color:white;
+    outline:none;
+}
+.comment-form{
+    height: 100px;
+    margin-top: 20px;
+    margin-left: 50px;
+    border-width: 5px;
+}
+/*Стиль для автозаполнения комментария*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #000000 inset !important;
+}
+input:-webkit-autofill{
+    -webkit-text-fill-color: white !important;
+}
+
+
+
+
+/*СТРАНИЦА МОЙ ПРОФИЛЬ*/
+.profile-followers-btn{
+    border-radius: 20px;
+    background-color: #000000;
+    color: rgb(249, 61, 140);
+    border-color: rgb(48, 48, 48);
+}
+
+.myprofile-page-div{
+    width: 800px;
+}
+
+.profile-change-btn{
+    border-radius: 20px;
+    background-color: #000000;
+    color: white;
+    border-color: rgb(48, 48, 48);
+    margin-left: 220px;
+}
+.profile-change-btn:hover{
+    background-color: #212121;
+}
+.profile-change-btn a{
+    text-decoration: none;
+    color: rgb(249, 61, 140);
+}
+.my-profile-follows-user-link{
+    text-decoration: none;
+    color: #FFFFFF8c;
+}
+.my-profile-follows-user-link:hover{
+    color: rgb(249, 61, 140);
+}
+.tab {
+    overflow: hidden;
+    border-bottom: 1px solid #181818;;
+    background-color: #000000;
+    color: white;
+    width: 800px;
+    margin: auto;
+}
+.tablinks{
+    color: rgb(249, 61, 140);
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+.tab button:hover {
+    background-color: rgb(0, 0, 0);
+}
+
+.tab button.active {
+    background-color: rgb(39, 39, 39);
+    text-decoration: underline;
+}
+
+.tabcontent {
+    width: 800px;
+    margin: auto;
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+}
+.my-profile-postdelete-link{
+    text-decoration: none;
+    color: #FFFFFF8c;
+}
+.my-profile-postdelete-link:hover{
+    color: rgb(249, 61, 140);
+}
+
+
+/*ЛИСТ ПРОФИЛЕЙ*/
+.profilelist-profile-link{
+    text-decoration: none;
+    color: white;
+}
+.profilelist-profile-link:hover{
+    color: rgb(249, 61, 140);
+}
+
+
+/*СТРАНИЦА ИЗМЕНЕНИЯ СТАТУСА*/
+#id_bio{
+    background-color: #3a3a3a;
+    border: #000000;
+    color:white;
+    outline:none;
+    resize: none;
+    overflow: auto;
+	overflow-x: hidden;
+    margin-left: 37px;
+}   
+#id_country, #id_phone{
+    background-color: #3a3a3a;
+    color:white;
+    width: 315px;
+}
+#id_country{
+    margin-left: 3px;
+}
+#id_phone{
+    margin-left: 15px;
+}
+
+.btn-edit-submit{
+    font-size: 20px;
+    border: none;
+    width: 100px;
+    background-color: #FFFFFF8c;
+}
+.btn-edit-submit:hover{
+    background-color: rgb(249, 61, 140);
+}
+
+
+
+/*СТРАНИЦА ПРОФИЛЯ*/
+/* Стили для темного фона */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+  
+  /* Стили для контента всплывающего окна */
+.popup-content {
+    background-color: #000000;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}  
+
+.profile-followers-user-link{
+    text-decoration: none;
+    color: #FFFFFF8c;
+
+}
+.profile-followers-user-link:hover{
+    color: rgb(249, 61, 140);
+}
+
+/*Адаптивность*/
+@media screen and (min-width: 576px) and (max-width: 1200px) {
+    
+    /*Для всех страниц*/
+    .container {
+        max-width: 1000px;
+    }
+    /*НАВИГАЦИЯ*/
+    .navbar-brand{
+        font-size: 40px;
+    }
+    .navbar-toggler{
+        width: 100px;
+        height: 100px;
+    }
+    .nav-link{
+        font-size: 45px;
+    }
+
+    /*СТРАНИЦА С ПОСТАМИ main(posts)*/
+    /*Посты*/
+    .posts-div {
+        width: 900px;
+        margin: auto;
+        font-size: 45px;
+    }
+    .post-btn{
+        position: relative; left: 0;
+    }
+    .post-image{
+        width: 800px;
+        border-radius: 10px;
+    }
+    
+    .post-user-pic{
+        width: 140px;
+        height: 140px;
+    }
+    .staff-icon{
+        width: 40px;
+    }
+    .video{
+        max-height: 100%;
+        width: 100%;
+        height: auto;
+        
+    }
+    .pagination{
+        font-size: 40px;
+    }
+    .video::-webkit-media-controls-panel {
+        font-size: 16px;
+      }
+    
+      /* Increase the height of the progress bar */
+      .video::-webkit-media-slider-container {
+        height: 100px;
+      }
+    
+      /* Increase the size of the play/pause button */
+      .video::-webkit-media-controls-play-button,
+      .video::-webkit-media-controls-pause-button {
+        height: 24px;
+        width: 24px;
+      }
+    
+    /*Твит*/
+    textarea#id_post_body{
+        background-color: #000000;
+        border: #000000;
+        color:white;
+        outline:none;
+        width: 600px;
+        resize: none;
+        overflow: auto;
+        overflow-x: hidden;
+        font-size: 35px;
+    }
+    textarea#id_post_body::-webkit-scrollbar-track{
+        background-color: white;
+    }
+    
+    textarea#id_post_body::-webkit-scrollbar{
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+    
+    textarea#id_post_body::-webkit-scrollbar-thumb{
+        border-radius: 100px;
+        box-shadow: 3px 0px 12px 4px rgb(12, 12, 12);
+        background-color: rgb(249, 61, 140);
+    }
+    .post-btn{
+        position: relative; left: 0;
+        font-size: 35px;
+        width: 150px;
+        height: 70px;
+    }
+    .image-pick-icon{
+        position: relative; right: 0;
+        width: 75px;
+        height: 75px;
+    }
+    .posts-page-font{
+        font-size: 40px;
+    }
+    .comment-btn{
+        width: 250px;
+        height: 70px;
+        font-size: 30px;
+        background-color: rgb(249, 61, 140);
+        color: white;
+    }
+    .comment-user-pic{
+        width: 100px;
+        height: 100px;
+    }
+    .comment-form{
+        margin-bottom: 100px;
+    }
+    .comment-toggle-btn{
+        font-size: 35px;
+        margin-bottom: 40px;
+    }
+    .toggle-button-icon{
+        width: 80px;
+        height: 80px;
+    }
+    /*СТРАНИЦА МОЙ ПРОФИЛЬ*/
+    .col-status-div{
+        font-size: 45px;
+    }
+    .btn-edit-submit{
+        font-size: 40px;
+        height: 100px;
+        width: 200px;
+    }
+    .profile-top-div{
+        width: 850px;
+    }
+    .profile-change-btn{
+        font-size: 40px;
+        border-width: 5px;
+    }
+    
+    .tablinks{
+        font-size: 45px;
+    }
+    .tabcontent{
+        font-size: 35px;
+    }
+    .my-profile-post-image{
+        width: 600px;
+    }
+    /*СТРАНИЦА ИЗМЕНЕНИЯ СТАТУСА*/
+    #id_bio{
+        background-color: #3a3a3a;
+        border: #000000;
+        color:white;
+        outline:none;
+        resize: none;
+        overflow: auto;
+        overflow-x: hidden;
+        margin-left: 0;
+    }   
+    #id_country, #id_phone{
+        background-color: #3a3a3a;
+        color:white;
+        width: 835px;
+    }
+    #id_country{
+        margin-left: 3px;
+    }
+    #id_phone{
+        margin-left: 0px;
+    }
+    
+
+    /*ЛИСТ ПРОФИЛЕЙ*/
+    .profile-list-row-item{
+        font-size: 32px;
+    }
+    .profile-list-top{
+        font-size: 45px;
+    }
+    .search-div{
+        font-size: 30px;
+    }
+    .search-submit-btn{
+        font-size: 30px;
+    }
+    
+
+    /*СТРАНИЦА ПРОФИЛЯ*/
+    #open-popup{
+        font-size: 40px;
+        border-width: 5px;
+    }
+    .popup-title-text{
+        font-size: 45px;
+    }
+    .popup-content{
+        width: 800px;
+    }
+    #close-popup{
+        font-size: 45px;
+    }
+    
+    /*Логин*/
+    .login-form-div{
+        font-size: 35px;
+    }
+    .login-form-div form{
+        width: 900px;
+    }
+    .login-form-div input{
+        font-size: 40px;
+        
+    }
+}

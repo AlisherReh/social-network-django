@@ -1,0 +1,122 @@
+        
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>A Twit</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?{% now "U" %}">
+    <link rel="icon" href="{% static 'media/123_fvipp2r.png' %}">
+</head>
+<body>
+        {% include "nav.html" %}
+        <div class="container-fluid mb-3 mt-5 myprofile-page-div">
+                <div class="col-sm-9 col-status-div">
+                    <div class="profile-top-div">
+                        <img src="{{ request.user.status.profile_picture.url }}" class="img-responsive profile_pic" style="width:200px" alt="Image"><button class="btn profile-change-btn" onclick="document.location='{% url 'profiles:edit-status-view' %}'" ><a href="{% url 'profiles:edit-status-view' %}">Change the profile</a></button>
+                    </div>
+                    <div class="mt-4">
+                        <p>Last time you was online:
+                        <p class="">{{request.user.last_login}}
+                    </div>
+                    <h4 class="mt-5">Username</h4>
+                    <div>
+                        <p class="">{{request.user.username}}
+                    </div>
+                    <h4 class="mt-4">First name</h4>
+                    <div>
+                        <p class="">{{request.user.first_name}}
+                    </div>
+                    <h4 class="mt-4">Last name</h4>
+                    <div>
+                        <p class="">{{request.user.last_name}}
+                    </div>
+                    <h4 class="mt-4">Email</h4>
+                    <div>
+                        <p class="">{{request.user.email}}
+                    </div>
+                    <h4 class="mt-4">Bio</h4>
+                    <div>
+                        <p class="">{{request.user.status.bio}}
+                    </div>
+                    <h4 class="mt-4">Country</h4>
+                    <div>
+                        <p class="">{{request.user.status.country}}
+                    </div>
+                    <h4 class="mt-4">Phone number</h4>
+                    <div>
+                        <p class="">{{request.user.status.phone}}
+                    </div>
+                </div>
+        </div>
+        <div class="container-fluid mb-3 mt-5">
+            <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'Posts')">My posts</button>
+                <button class="tablinks" onclick="openCity(event, 'Follows')">My Follows</button>
+                <button class="tablinks" onclick="openCity(event, 'Followers')">My Followers</button>
+            </div>
+            <div id="Posts" class="tabcontent">
+                <h3>My posts</h3>
+                {% load custom_filters %}
+                {% for post in posts|orderby_date:"desc" %}
+                <div class="card mx-5 mt-2 post-card">
+                    <p class="mt-4"><img src="{{post.user.status.profile_picture.url}}" class="post-user-pic profile_pic">{{post.post_body}}
+                    <div class="text-center">
+                        <p>{% if post.image != "" %}<img src="{{post.image.url}}" class="post-image my-profile-post-image">{%endif%}
+                        <p>{% if post.video.url != null %}
+                            <video class=" video" controls muted loop autoplay id="video_{{post.id}}">
+                                <source src="{{ post.video.url }}" type="video/mp4">
+                              </video>
+                            {%endif%}
+                    </div>
+                    <p><a class="my-profile-postdelete-link" href="postDelete/{{post.id}}">Delete post</a>   
+                </div>
+                <p class="mb-5"></p>
+                
+                {%endfor%}
+            </div>
+            
+            <div id="Follows" class="tabcontent">
+                <p><h3>My follows</h3>
+                {% for user in follows %}
+                <a href = "../profile/{{ user.status.id }}" class="my-profile-follows-user-link">
+                    <p><img src="{{user.status.profile_picture.url}}" class="post-user-pic profile_pic">
+                    {{ user }}
+                </a>
+                {%endfor%}
+                
+            </div>
+            
+            <div id="Followers" class="tabcontent">
+                <p><h3>My followers</h3>
+                    {%for user in followers %}
+                    <a href = "../profile/{{ user.user.status.id }}" class="my-profile-follows-user-link">
+                        <p><img src="{{user.user.status.profile_picture.url}}" class="post-user-pic profile_pic">
+                        {{ user.user }}
+                    </a>
+                    {%endfor%}
+            </div>
+        </div>
+        {% include "footer.html" %}
+        <script>
+            openCity(event, "Posts")
+            function openCity(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tablinks[i].classList.remove("active");
+                }
+                document.getElementById(cityName).style.display = "block";
+                if (evt) {evt.currentTarget.classList.add("active");}
+            }
+        </script>
+        <script src="{% static 'js/bootstrap.min.js' %}" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+</body>
+</html>
